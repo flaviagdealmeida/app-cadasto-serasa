@@ -33,8 +33,11 @@ public class PessoaService {
 		
 	}
 	
-	public void delete(Pessoa pessoa) {
-		repository.delete(pessoa);
+	public void delete(Long id) {
+		Pessoa entity = repository.findById(id)
+				.orElseThrow(() -> 
+				new ResourceNotFoundException("Não foi encontrado registro com esse Id"));
+		repository.delete(entity);
 	}
 	
 	public Pessoa atualizar(Pessoa pessoa) {
@@ -47,5 +50,11 @@ public class PessoaService {
 		return inserir(entity);
 		
 	}
+	
+	public List<Pessoa> buscarPorNome(String nome){
+		return repository.findByNome(nome);
+	}
+	
+	
 	
 }
