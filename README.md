@@ -15,6 +15,7 @@
 
 * https://spring.io/
 * https://www.baeldung.com/spring-pathvariable
+* https://jakarta.ee/specifications/
 * https://martinfowler.com/eaaCatalog/dataTransferObject.html
 * https://martinfowler.com/bliki/ValueObject.html
 * https://github.com/DozerMapper/dozer
