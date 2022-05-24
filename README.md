@@ -22,6 +22,8 @@
 * https://github.com/Naereen/badges
 * https://github.com/luong-komorebi/Markdown-Tutorial/blob/master/README_pt-BR.md
 * https://blog.rocketseat.com.br/como-fazer-um-bom-readme/
+* https://mapstruct.org/
+* https://www.youtube.com/watch?v=80aMT02qAbg
 
 
 
