@@ -35,7 +35,7 @@ public class PessoaService {
 	}
 
 	public PessoaVO atualizar(PessoaVO pessoa) {
-		var entity = repository.findById(pessoa.getId())
+		var entity = repository.findById(pessoa.getKey())
 				.orElseThrow(() -> new ResourceNotFoundException("Não foi encontrado registro com esse Id"));
 
 		entity.setNome(pessoa.getNome());
