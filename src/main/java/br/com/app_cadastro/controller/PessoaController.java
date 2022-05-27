@@ -34,7 +34,7 @@ public class PessoaController {
 	@Autowired
 	PessoaService service;
 
-//	@CrossOrigin("localhost:8080") //permitido o acesso
+	@CrossOrigin("localhost:8080") //permitido o acesso
 	@RequestMapping(method = RequestMethod.GET, produces = { "application/json", "application/xml" })
 	@Operation(summary="Listar todas as pessoas")
 	@ResponseStatus(value = HttpStatus.OK)
@@ -44,7 +44,7 @@ public class PessoaController {
 		return pessoasVO;
 	}
 
-//	@CrossOrigin({"localhost:8080", "http://www.fgateste.com.br"}) //permitido o acesso
+	@CrossOrigin({"localhost:8080", "http://www.fgateste.com.br"}) //permitido o acesso
 	@GetMapping(value = "/{id}", produces = { "application/json", "application/xml" })
 	@ResponseStatus(value = HttpStatus.OK)
 	public PessoaVO findById(@PathVariable("id") Long id) {
