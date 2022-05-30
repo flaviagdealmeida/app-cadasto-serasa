@@ -15,7 +15,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="permission")
+@Table(name="permissions")
 public class Permission implements GrantedAuthority, Serializable {
 
 	private static final long serialVersionUID = 1L;
