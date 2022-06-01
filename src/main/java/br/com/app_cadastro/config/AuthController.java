@@ -1,4 +1,4 @@
-package br.com.app_cadastro.controller;
+package br.com.app_cadastro.config;
 
 import static org.springframework.http.ResponseEntity.ok;
 
@@ -22,19 +22,20 @@ import br.com.app_cadastro.security.CredenciaisContaVO;
 import br.com.app_cadastro.security.jwt.JwtProvider;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-@Tag(name = "Authentication Endpoint")
+@Tag(name="Authentication Endpoint")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
-	@Autowired
+	@Autowired	
 	AuthenticationManager authenticationManager;
-	
+
+	@Autowired
+	JwtProvider tokenProvider;
+
 	@Autowired
 	UserRepository repository;
-	
-	@Autowired
-	JwtProvider jwtProvider;
+
 	@PostMapping(value = "/signin", produces = { "application/json", "application/xml" }, 
 			consumes = { "application/json",	"application/xml" })
 	public ResponseEntity signin(@RequestBody CredenciaisContaVO cred) {
@@ -43,13 +44,14 @@ public class AuthController {
 			var username = cred.getUsername();
 			var password = cred.getPassword();
 			
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+			authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(username, password));
 			
 			var user = repository.findByUserName(username);
 			var token = "";
 			
 			if (user !=null) {
-				token = jwtProvider.createToken(username, user.getRoles());
+				token = tokenProvider.createToken(username, user.getRoles());
 			}else {
 				throw new UsernameNotFoundException("Usuário " + username+ "não localizado");
 			}
@@ -63,5 +65,5 @@ public class AuthController {
 		}
 		
 	}
-	
+
 }

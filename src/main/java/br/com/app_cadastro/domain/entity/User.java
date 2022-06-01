@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,9 +20,7 @@ import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import lombok.Data;
 
-@Data
 @Entity
 @Table(name = "users")
 public class User implements UserDetails, Serializable {
@@ -49,7 +48,7 @@ public class User implements UserDetails, Serializable {
 	private Boolean accountNonLocked;
 
 	@Column(name = "credentials_non_expired")
-	private Boolean credentialsNonExpired;
+	private Boolean credentialNonExpired;
 
 	@Column(name = "enabled")
 	private Boolean enabled;
@@ -58,6 +57,27 @@ public class User implements UserDetails, Serializable {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return this.permissions;
 	}
+
+	
+	
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public User(Long id, String userName, String fullName, String password, Boolean accountNonExpired,
+			Boolean accountNonLocked, Boolean credentialNonExpired, Boolean enabled, List<Permission> permissions) {
+		this.id = id;
+		this.userName = userName;
+		this.fullName = fullName;
+		this.password = password;
+		this.accountNonExpired = accountNonExpired;
+		this.accountNonLocked = accountNonLocked;
+		this.credentialNonExpired = credentialNonExpired;
+		this.enabled = enabled;
+		this.permissions = permissions;
+	}
+
 
 	@Override
 	public String getPassword() {
@@ -81,7 +101,7 @@ public class User implements UserDetails, Serializable {
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return this.credentialsNonExpired;
+		return this.credentialNonExpired;
 	}
 
 	@Override
@@ -90,8 +110,9 @@ public class User implements UserDetails, Serializable {
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_permission", joinColumns = { @JoinColumn(name = "id_user") }, inverseJoinColumns = {
-			@JoinColumn(name = "id_permission") })
+	@JoinTable(name = "user_permission", 
+	joinColumns = { @JoinColumn(name = "id_user") }
+	, inverseJoinColumns = {	@JoinColumn(name = "id_permission") })
 	private List<Permission> permissions;
 
 	public List<String> getRoles() {
@@ -102,4 +123,131 @@ public class User implements UserDetails, Serializable {
 		return roles;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(accountNonExpired, accountNonLocked, credentialNonExpired, enabled, fullName, id, password,
+				permissions, userName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(accountNonExpired, other.accountNonExpired)
+				&& Objects.equals(accountNonLocked, other.accountNonLocked)
+				&& Objects.equals(credentialNonExpired, other.credentialNonExpired)
+				&& Objects.equals(enabled, other.enabled) && Objects.equals(fullName, other.fullName)
+				&& Objects.equals(id, other.id) && Objects.equals(password, other.password)
+				&& Objects.equals(permissions, other.permissions) && Objects.equals(userName, other.userName);
+	}
+
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+
+	public String getUserName() {
+		return userName;
+	}
+
+
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+
+
+	public String getFullName() {
+		return fullName;
+	}
+
+
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+
+
+
+	public Boolean getAccountNonExpired() {
+		return accountNonExpired;
+	}
+
+
+
+	public void setAccountNonExpired(Boolean accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
+	}
+
+
+
+	public Boolean getAccountNonLocked() {
+		return accountNonLocked;
+	}
+
+
+
+	public void setAccountNonLocked(Boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
+
+
+
+	public Boolean getCredentialNonExpired() {
+		return credentialNonExpired;
+	}
+
+
+
+	public void setCredentialNonExpired(Boolean credentialNonExpired) {
+		this.credentialNonExpired = credentialNonExpired;
+	}
+
+
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
+
+
+	public List<Permission> getPermissions() {
+		return permissions;
+	}
+
+
+
+	public void setPermissions(List<Permission> permissions) {
+		this.permissions = permissions;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
+	
 }
