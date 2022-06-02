@@ -1,4 +1,4 @@
-package br.com.app_cadastro.config;
+package br.com.app_cadastro.controller;
 
 import static org.springframework.http.ResponseEntity.ok;
 
