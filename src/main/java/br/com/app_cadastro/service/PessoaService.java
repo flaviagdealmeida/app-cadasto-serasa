@@ -3,6 +3,8 @@ package br.com.app_cadastro.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import br.com.app_cadastro.adapter.DozerConverter;
@@ -23,8 +25,9 @@ public class PessoaService {
 		return vo;
 	}
 
-	public List<PessoaVO> buscarTodos() {
-		return DozerConverter.parseListObject(repository.findAll(), PessoaVO.class);
+	public Page<PessoaVO> buscarTodos(Pageable pageable) {
+		var page = repository.findAll(pageable);
+		return page.map(this::convertToPersonVO);
 	}
 
 	public PessoaVO buscarPorId(Long id) {
@@ -53,8 +56,14 @@ public class PessoaService {
 		repository.delete(entity);
 	}
 
-	public List<Pessoa> buscarPorNome(String nome) {
-		return repository.findByNome(nome);
+	public Page<PessoaVO> findByName(String nome, Pageable pageable) {
+		var page = repository.findByNome(nome, pageable);
+		return page.map(this::convertToPersonVO);
+
+	}
+
+	private PessoaVO convertToPersonVO(Pessoa entity) {
+		return DozerConverter.parseObject(entity, PessoaVO.class);
 	}
 
 }
