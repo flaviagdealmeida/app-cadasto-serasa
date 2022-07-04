@@ -15,3 +15,4 @@ public class FileStorageConfig {
 		this.uploadDir = uploadDir;
 	}
 }
+

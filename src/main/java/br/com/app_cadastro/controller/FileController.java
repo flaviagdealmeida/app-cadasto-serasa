@@ -3,9 +3,7 @@ package br.com.app_cadastro.controller;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +24,8 @@ import br.com.app_cadastro.domain.vo.v1.UploadFileResponseVO;
 import br.com.app_cadastro.service.FileStorageService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-//@Profile("dev")
+
+
 @Tag( name= "FileEndpoint")
 @RestController
 @RequestMapping("/api/file/v1") 
@@ -49,7 +48,6 @@ public class FileController {
 		return new UploadFileResponseVO(fileName, fileDownloadUri, file.getContentType(), file.getSize());
 	}
 	
-	//@Profile("prod")
 	@PostMapping("/uploadMultipleFiles")
 	public List<UploadFileResponseVO> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
 		return Arrays.asList(files)
@@ -83,3 +81,4 @@ public class FileController {
 	}
 
 }
+

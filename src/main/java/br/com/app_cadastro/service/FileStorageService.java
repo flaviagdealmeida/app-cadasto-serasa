@@ -23,10 +23,9 @@ public class FileStorageService {
 	
 	@Autowired
 	public FileStorageService(FileStorageConfig fileStorageConfig) {
-		
-	/*	metodo faz a limpeza do nome, não permitiendo caracteres fora do contexto
+		/*	metodo faz a limpeza do nome, não permitiendo caracteres fora do contexto
 		permitindo apenas caminhos validos sem a possibilidade de ataque de Path manipulation*/
-		
+
 		this.fileStorageLocation = Paths.get(fileStorageConfig.getUploadDir())
 				.toAbsolutePath().normalize();
 		try {
@@ -35,7 +34,7 @@ public class FileStorageService {
 			throw new FileStorageException("Could not create the directory where the uploaded files will be stored", e);
 		}
 	}
-	// metodo passado pelo cabeçalho de qual tipo de arquivo aceito para uploads
+		// metodo passado pelo cabeçalho de qual tipo de arquivo aceito para uploads
 	public String storeFile(MultipartFile file) {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		
@@ -67,4 +66,7 @@ public class FileStorageService {
 		}
 		
 	}
+
 }
+
+
